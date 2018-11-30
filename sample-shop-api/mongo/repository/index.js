@@ -12,7 +12,7 @@ module.exports = class Repository {
     }
 
     async update(obj) {
-        return await this.model.findByIdAndUpdate(obj.id, obj);
+        return await this.model.findByIdAndUpdate(obj._id, obj);
     }
 
     async delete(id) {

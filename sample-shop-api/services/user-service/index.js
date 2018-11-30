@@ -1,9 +1,10 @@
-const errorHelper = require('../../helpers/error-helpers');
-const validator = require('../../helpers/validator');
-const modelNames = require('../../mongo/model-names');
-const jwt = require('../../helpers/jwt');
-const hash = require('../../helpers/hash');
-const mapper = require('../../helpers/mapper');
+const ErrorHelper = require('../../helpers/error-helpers');
+const Validator = require('../../helpers/validator');
+const ModelNames = require('../../mongo/model-names');
+const Jwt = require('../../helpers/jwt');
+const Hash = require('../../helpers/hash');
+const Mapper = require('../../helpers/mapper');
+const Roles = require('../../mongo/models/roles');
 
 module.exports = class UserService {
     constructor(rep) {
@@ -11,39 +12,41 @@ module.exports = class UserService {
     }
 
     async register(user) {
-        if (!validator.isValid(user, modelNames.USER)) throw errorHelper.notValidModelException;
+        if (!Validator.isValid(user, ModelNames.USER)) throw ErrorHelper.notValidModelException;
 
-        user.password = hash.hashPassword(user.password);
+        user.password = Hash.hashPassword(user.password);
 
         let userExists = await this.repository.readByField({ email: user.email });
 
-        if (userExists) throw errorHelper.argumentsException;
+        if (userExists) throw ErrorHelper.argumentsException;
+
+        user.role = Roles.USER;
 
         let registeredUser = await this.repository.create(user);
 
-        if (!registeredUser) throw errorHelper.argumentsException;
+        if (!registeredUser) throw ErrorHelper.argumentsException;
 
         return {
-            user: mapper.map(registeredUser, modelNames.USER, modelNames.USER_VIEW),
-            token: `bearer ${jwt.generateToken(registeredUser)}`
+            user: Mapper.map(registeredUser, ModelNames.USER, ModelNames.USER_VIEW),
+            token: `bearer ${Jwt.generateToken(registeredUser)}`
         };
     }
 
     async login(creds) {
-        if (!validator.isValid(creds, modelNames.CREDS)) throw errorHelper.notValidModelException;
+        if (!Validator.isValid(creds, ModelNames.CREDS)) throw ErrorHelper.notValidModelException;
 
         let user = await this.repository.readByField({ email: creds.email });
 
-        if (!user) throw errorHelper.argumentsException;
+        if (!user) throw ErrorHelper.argumentsException;
 
-        if (hash.comparePassowrds(creds.password, user.password)) {
+        if (Hash.comparePassowrds(creds.password, user.password)) {
             return {
-                user: mapper.map(user, modelNames.USER, modelNames.USER_VIEW),
-                token: `bearer ${jwt.generateToken(user)}`
+                user: Mapper.map(user, ModelNames.USER, ModelNames.USER_VIEW),
+                token: `bearer ${Jwt.generateToken(user)}`
             };
         }
 
-        throw errorHelper.argumentsException;
+        throw ErrorHelper.argumentsException;
     }
 
     async logout() {
@@ -58,19 +61,32 @@ module.exports = class UserService {
     }
 
     async update(user) {
-        if (!validator.isValid(user, modelNames.USER)) throw errorHelper.notValidModelException;
+        if (!Validator.isValid(user, ModelNames.USER_VIEW)) throw ErrorHelper.notValidModelException;
+
+        let currentUser = await this.repository.read(user._id);
+
+        if (!currentUser) throw ErrorHelper.notFoundException;
+
+        if (user.password) {
+            if (!Hash.comparePassowrds(user.password, currentUser.password)) {
+                user.password = Hash.hashPassword(user.password);
+            }
+        }
+        else {
+            user.password = currentUser.password;
+        }
 
         return await this.repository.update(user);
     }
 
     async get(id) {
         let user = await this.repository.read(id);
-        return user ? mapper.map(user, modelNames.USER, modelNames.USER_VIEW) : user;
+        return user ? Mapper.map(user, ModelNames.USER, ModelNames.USER_VIEW) : user;
     }
 
     async getAll() {
         return (await this.repository.readAll()).map(user => {
-            return mapper.map(user, modelNames.USER, modelNames.USER_VIEW);
+            return Mapper.map(user, ModelNames.USER, ModelNames.USER_VIEW);
         });
     }
 }

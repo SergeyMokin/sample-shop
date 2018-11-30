@@ -15,8 +15,16 @@ module.exports = function (req, res, next) {
     if (!parsed.data.email)
         return res.status(401).send({ user: null, message: ErrorHelper.nonAuthorizedException });
 
-    if (User.findOne({ email: parsed.data.email }))
-        next();
-    else
-        return res.status(401).send({ user: null, message: ErrorHelper.nonAuthorizedException });
+    User.findOne({ email: parsed.data.email })
+        .then((user) => {
+            if (user) {
+                if (user._id == parsed.data._id
+                    && user.password == parsed.data.password) {
+                    next();
+                    return;
+                }
+            }
+            res.status(401).send({ user: null, message: ErrorHelper.nonAuthorizedException });
+        })
+        .catch(() => res.status(401).send({ user: null, message: ErrorHelper.nonAuthorizedException }));
 }
