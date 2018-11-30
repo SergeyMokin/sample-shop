@@ -7,7 +7,8 @@ function userMap(user, nameTo) {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            pictureRef: user.pictureRef
+            pictureRef: user.pictureRef,
+            role: user.role
         };
         default: return user;
     }
