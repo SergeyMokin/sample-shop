@@ -1,3 +1,3 @@
-const Mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-Mongoose.connect('mongodb://user:admin1@ds111608.mlab.com:11608/sample-shop');
+mongoose.connect('mongodb://user:admin1@ds111608.mlab.com:11608/sample-shop');
