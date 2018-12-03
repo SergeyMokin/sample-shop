@@ -1,8 +1,8 @@
 const ErrorHelper = require('../../helpers/error-helpers');
 
-module.exports = class ErrorFilter{
-    static generateError(response, mes){
-        switch(mes){
+module.exports = class ErrorFilter {
+    static generateError(response, mes) {
+        switch (mes) {
             case ErrorHelper.argumentsException: response.status(400); break;
             case ErrorHelper.nonAuthorizedException: response.status(401); break;
             case ErrorHelper.accessForbiddenException: response.status(403); break;

@@ -7,10 +7,14 @@ module.exports = class EmailService {
             port: 465,
             secure: true,
             auth: {
-                user: "sampleshop2019@yandex.by",
+                user: this.senderEmail,
                 pass: "sampleshop"
             }
         });
+    }
+
+    get senderEmail() {
+        return "sampleshop2019@yandex.by";
     }
 
     /* 
