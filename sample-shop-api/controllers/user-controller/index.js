@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bodyParser = require('body-parser');
 const Initializer = require('../../helpers/initializer');
 const Auth = require('../../filters/auth');
+const AdminAuth = require('../../filters/admin-auth');
 const ReponseHandler = require('../../helpers/response-handler');
 
 let userService = Initializer.getUserService();
@@ -21,7 +22,7 @@ router.post('/logout', Auth, function (request, response) {
     ReponseHandler(userService.logout(request.body), response);
 });
 
-router.delete('/delete/:id', Auth, function (request, response) {
+router.delete('/delete/:id', AdminAuth, function (request, response) {
     ReponseHandler(userService.delete(request.params.id), response);
 });
 
