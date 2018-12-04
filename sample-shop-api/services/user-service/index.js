@@ -16,6 +16,8 @@ module.exports = class UserService {
 
         user.password = Hash.hashPassword(user.password);
 
+        user.email = user.email.trim();
+
         let userExists = await this.repository.readByField({ email: user.email });
 
         if (userExists) throw ErrorHelper.argumentsException;
@@ -34,6 +36,8 @@ module.exports = class UserService {
 
     async login(creds) {
         if (!Validator.isValid(creds, ModelNames.CREDS)) throw ErrorHelper.notValidModelException;
+
+        creds.email = creds.email.trim();
 
         let user = await this.repository.readByField({ email: creds.email });
 
