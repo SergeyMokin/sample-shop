@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
-import Api from '../../api';
-import Constants from '../../constants';
+import Header from './header';
+import Footer from './footer';
+import MainContent from './main-content';
+import './index.css';
 
-class MainContent extends Component {
-    constructor(props){
-        super(props);
-        let token = JSON.parse(localStorage.getItem(Constants.LOCAL_STORAGE_TOKEN));
-        this.api = new Api(token);
-    }
-
-    async getPurchases(){
-        console.log(await this.api.getPurchases());
-    }
-
+class Content extends Component {
     render() {
         return (
-            <div> <button onClick={this.props.logout}>logout</button> <button onClick={this.getPurchases.bind(this)}>try api</button> </div>
+            <div className="content">
+                <div className="header">
+                    <Header logout={this.props.logout} />
+                </div>
+                <div className="main-content">
+                    <MainContent />
+                </div>
+                <div className="footer">
+                    <Footer />
+                </div>
+            </div>
         )
     }
 }
 
-export default MainContent;
+export default Content;
