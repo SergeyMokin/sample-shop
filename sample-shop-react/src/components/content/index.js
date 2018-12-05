@@ -9,13 +9,13 @@ class Content extends Component {
         return (
             <div className="content">
                 <div className="header">
-                    <Header logout={this.props.logout} />
+                    <Header logout={this.props.logout} store={this.props.store}/>
                 </div>
                 <div className="main-content">
-                    <MainContent />
+                    <MainContent store={this.props.store}/>
                 </div>
                 <div className="footer">
-                    <Footer />
+                    <Footer store={this.props.store}/>
                 </div>
             </div>
         )

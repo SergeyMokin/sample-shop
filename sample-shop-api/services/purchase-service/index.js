@@ -24,7 +24,7 @@ module.exports = class PurchaseService {
     async update(model) {
         if (!Validator.isValid(model, ModelNames.PURCHASE)) throw ErrorHelper.notValidModelException;
 
-        return await this.rep.update(model._id, model);
+        return await this.rep.update(model);
     }
 
     async delete(id) {

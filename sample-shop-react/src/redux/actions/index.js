@@ -11,3 +11,7 @@ export function deleteFromBasket(id) {
 export function clearUserBasket() {
     return { type: ActionTypes.CLEAR_USER_BASKET };
 }
+
+export function setBasket(basket) {
+    return { type: ActionTypes.SET_BASKET, basket };
+}

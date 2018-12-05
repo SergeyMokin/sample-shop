@@ -1,3 +1,5 @@
+import Constants from '../constants';
+
 const API_URL = `http://localhost:63027/`;
 //let path = API_URL + `account/register?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
 class StatusException {
@@ -38,11 +40,14 @@ function ResponseHandler(response, badReqMes = null) {
 }
 
 export default class Api {
-    constructor(value = '') {
+    constructor(value = null) {
+        if(value === null){
+            value = JSON.parse(localStorage.getItem(Constants.LOCAL_STORAGE_TOKEN));
+        }
         this.headers = {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            Authorization: value
+            Authorization: value === null ? '' : value
         }
     }
 
@@ -102,10 +107,87 @@ export default class Api {
 
         return ResponseHandler(response);
     }
-
+    
     async getPurchases(){
         let method = `GET`;
         let path = API_URL + `purchase/getall`
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers
+            }
+        );
+
+        return ResponseHandler(response);
+    }
+
+    async addToBasket(obj){
+        let method = `POST`;
+        let path = API_URL + `shopping-basket`
+        let body = obj.length ? JSON.stringify(obj) : JSON.stringify([obj]);
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers,
+                body: body
+            }
+        );
+
+        return ResponseHandler(response);
+    }
+
+    async deleteFromBasket(id){
+        let method = `DELETE`;
+        let path = API_URL + `shopping-basket/${encodeURIComponent(id)}`
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers
+            }
+        );
+
+        return ResponseHandler(response);
+    }
+
+    async clearBasket(){
+        let method = `POST`;
+        let path = API_URL + `shopping-basket/clear`
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers
+            }
+        );
+
+        return ResponseHandler(response);
+    }
+
+    async getBasket(){
+        let method = `GET`;
+        let path = API_URL + `shopping-basket`
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers
+            }
+        );
+
+        return ResponseHandler(response);
+    }
+
+    async buy(){
+        let method = `POST`;
+        let path = API_URL + `shop/buy`
 
         let response = await fetch(
             path,

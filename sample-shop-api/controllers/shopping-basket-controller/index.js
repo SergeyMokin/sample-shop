@@ -22,7 +22,7 @@ router.delete('/:id', Auth, function (request, response) {
     ReponseHandler(shoppingBasketService.delete(UserExtensions.getUserId(request), request.params.id), response);
 });
 
-router.delete('/clear', Auth, function (request, response) {
+router.post('/clear', Auth, function (request, response) {
     ReponseHandler(shoppingBasketService.clear(UserExtensions.getUserId(request)), response);
 });
 
