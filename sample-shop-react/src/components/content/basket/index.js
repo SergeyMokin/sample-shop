@@ -28,10 +28,10 @@ export default class Basket extends Component {
         return (
             <div key={p.key} className="card-item">
                 <div className="img" style={{ backgroundImage: `url(${p.values[0].pictureRef ? p.values[0].pictureRef : require('../../../content/no-image.png')})` }}></div>
-                <div className="title">{p.values[0].title} - {p.values[0].cost}$</div>
+                <div className="title">{p.values[0].title}</div>
                 <div className="buttons">
                     <button onClick={() => this.delete(p.key)}> - </button>
-                    <div className="count">{p.values.length}</div>
+                    <div className="count">{p.values[0].cost}$ * {p.values.length}</div>
                     <button onClick={() => this.add(p.values[0])}> + </button>
                 </div>
             </div>

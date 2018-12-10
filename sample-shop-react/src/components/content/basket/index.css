@@ -50,10 +50,12 @@
 
 .basket .card-item .title{
     position: absolute;
-    right: 10px;
     top: 5px;
     font-weight: bold;
     font-style: italic;
+    width: 90%;
+    text-align: center;
+    left: 5%;
 }
 
 .basket .card-item .buttons{
@@ -69,6 +71,7 @@
 .basket .card-item .buttons .count{
     width: 100%;
     text-align: center;
+    font-weight: bold;
 }
 
 .completed{
