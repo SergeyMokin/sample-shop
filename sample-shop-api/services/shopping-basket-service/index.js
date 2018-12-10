@@ -27,8 +27,7 @@ module.exports = class ShoppingBasketService {
 
     async delete(userId, purchaseId) {
         let userBasket = await this.get(userId);
-
-        userBasket.purchases = userBasket.purchases.filter(x => x._id != purchaseId);
+        userBasket.purchases.splice(userBasket.purchases.indexOf(userBasket.purchases.find(x => x._id == purchaseId)), 1);
 
         return this.rep.update(userBasket);
     }
