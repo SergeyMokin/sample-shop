@@ -107,10 +107,10 @@ export default class Api {
 
         return ResponseHandler(response);
     }
-    
-    async getPurchases(){
+
+    async getUsers(){
         let method = `GET`;
-        let path = API_URL + `purchase/getall`
+        let path = API_URL + `user/getall`;
 
         let response = await fetch(
             path,
@@ -120,12 +120,107 @@ export default class Api {
             }
         );
 
-        return ResponseHandler(response, 'Can not get any elements.');
+        return ResponseHandler(response, 'Can not get any user.');
+    }
+
+    async editUser(user){
+        let method = `PUT`;
+        let path = API_URL + `user/update`;
+        let body = JSON.stringify(user);
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers,
+                body: body
+            }
+        );
+
+        return ResponseHandler(response, 'Can not edit user.');
+    }
+
+    async deleteUser(id){
+        let method = `DELETE`;
+        let path = API_URL + `user/delete/${encodeURIComponent(id)}`;
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers
+            }
+        );
+
+        return ResponseHandler(response, 'Can not delete user.');
+    }
+    
+    async getPurchases(){
+        let method = `GET`;
+        let path = API_URL + `purchase/getall`;
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers
+            }
+        );
+
+        return ResponseHandler(response, 'Can not get any purchase.');
+    }
+
+    async editPurchase(purchase){
+        let method = `PUT`;
+        let path = API_URL + `purchase/update`;
+        let body = JSON.stringify(purchase);
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers,
+                body: body
+            }
+        );
+
+        return ResponseHandler(response, 'Can not update purchase.');
+    }
+
+    async addPurchase(purchase){
+        let method = `POST`;
+        let path = API_URL + `purchase/add`;
+        let body = JSON.stringify(purchase);
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers,
+                body: body
+            }
+        );
+
+        return ResponseHandler(response, 'Can not add purchase.');
+    }
+
+    async deletePurchase(id){
+        let method = `DELETE`;
+        let path = API_URL + `purchase/delete/${encodeURIComponent(id)}`;
+
+        let response = await fetch(
+            path,
+            {
+                method: method,
+                headers: this.headers
+            }
+        );
+
+        return ResponseHandler(response, 'Can not delete purchase.');
     }
 
     async addToBasket(obj){
         let method = `POST`;
-        let path = API_URL + `shopping-basket`
+        let path = API_URL + `shopping-basket`;
         let body = obj.length ? JSON.stringify(obj) : JSON.stringify([obj]);
 
         let response = await fetch(
@@ -142,7 +237,7 @@ export default class Api {
 
     async deleteFromBasket(id){
         let method = `DELETE`;
-        let path = API_URL + `shopping-basket/${encodeURIComponent(id)}`
+        let path = API_URL + `shopping-basket/${encodeURIComponent(id)}`;
 
         let response = await fetch(
             path,
@@ -157,7 +252,7 @@ export default class Api {
 
     async clearBasket(){
         let method = `POST`;
-        let path = API_URL + `shopping-basket/clear`
+        let path = API_URL + `shopping-basket/clear`;
 
         let response = await fetch(
             path,
@@ -172,7 +267,7 @@ export default class Api {
 
     async getBasket(){
         let method = `GET`;
-        let path = API_URL + `shopping-basket`
+        let path = API_URL + `shopping-basket`;
 
         let response = await fetch(
             path,
@@ -187,7 +282,7 @@ export default class Api {
 
     async buy(){
         let method = `POST`;
-        let path = API_URL + `shop/buy`
+        let path = API_URL + `shop/buy`;
 
         let response = await fetch(
             path,

@@ -1,0 +1,76 @@
+.users{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.users .add{
+    width: 100%;
+}
+
+.users .add button{
+    width: 100%;
+    margin: 0;
+}
+
+.users .card-item{
+    width: 100%;
+    height: 25%;
+    margin-bottom: 1%;
+    position: relative;
+    border-top: solid 1px rgb(112, 64, 0);
+}
+
+.users .card-item .img{
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: cover;
+    background-color: rgb(233, 206, 170);
+    width: 12vw;
+    height: 12vw;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    border-radius: 100%;
+}
+
+.users .card-item .fullname{
+    position: absolute;
+    top: 5px;
+    font-weight: bold;
+    font-style: italic;
+    width: 90%;
+    text-align: center;
+    left: 5%;
+}
+
+.users .card-item .email{
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.users .card-item .buttons{
+    position: absolute;
+    width: 25%;
+    bottom: 0;
+}
+
+.users .card-item .buttons button{
+    width: 100%;
+}
+
+@media screen and (min-width: 600px){
+    .users .card-item .buttons{
+        right: 5%;
+        width: 17%;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .users .card-item .buttons{
+        right: 10%;
+    }
+}

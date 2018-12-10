@@ -1,0 +1,82 @@
+.purchases{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.purchases .add{
+    width: 100%;
+}
+
+.purchases .add button{
+    width: 100%;
+    margin: 0;
+}
+
+.purchases .card-item{
+    width: 100%;
+    height: 25%;
+    margin-bottom: 1%;
+    position: relative;
+    border-top: solid 1px rgb(112, 64, 0);
+}
+
+.purchases .card-item .img{
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: contain;
+    background-color: rgb(233, 206, 170);
+    height: 100%;
+    width: 25%;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+.purchases .card-item .title{
+    position: absolute;
+    top: 5px;
+    font-weight: bold;
+    font-style: italic;
+    width: 90%;
+    text-align: center;
+    left: 5%;
+}
+
+.purchases .card-item .cost{
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.purchases .card-item .buttons{
+    position: absolute;
+    width: 25%;
+    bottom: 0;
+}
+
+.purchases .card-item input{
+    width: 50%;
+    height: 25%;
+    border-bottom: 1px solid rgb(112, 64, 0);
+    color: black;
+}
+
+.purchases .card-item .buttons button{
+    width: 100%;
+}
+
+@media screen and (min-width: 600px){
+    .purchases .card-item .buttons{
+        right: 5%;
+        width: 17%;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .purchases .card-item .buttons{
+        right: 10%;
+    }
+}

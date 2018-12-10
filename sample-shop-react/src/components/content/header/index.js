@@ -33,6 +33,7 @@ class Header extends Component {
                         <ul className="dropdown">
                             <li><Link to="/">Purchases List</Link></li>
                             {this.isAdmin() ? <li><Link to="/admin-panel">Admin Panel</Link></li> : null}
+                            <li><Link to="/profile">Profile</Link></li>
                             <li onClick={this.props.logout}><Link to="/">Logout</Link></li>
                         </ul>
                     </li>
