@@ -61,6 +61,22 @@
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root"></div>
+  <script>
+    window.groupBy = function(array, selector) {
+      let uniqueKeys = array.map(selector).filter((value, index) => array.map(selector).indexOf(value) === index);
+      let arr = [];
+      for (let key of uniqueKeys) {
+        let res = { key: key, values: [] };
+        for (let el of array) {
+          if (selector(el) === key) {
+            res.values.push(el);
+          }
+        }
+        arr.push(res);
+      }
+      return arr;
+    }
+  </script>
 </body>
 
 </html>

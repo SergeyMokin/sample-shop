@@ -18,7 +18,8 @@ function reduce(state = initialState, action) {
         }
         case ActionTypes.DELETE_FROM_BASKET: {
             api.deleteFromBasket(action.id);
-            return state.filter(x => x._id !== action.id)
+            state.splice(state.indexOf(state.find(x => x._id === action.id)), 1);
+            return [...state];
         }
         case ActionTypes.SET_BASKET: {
             return [...action.basket.purchases];

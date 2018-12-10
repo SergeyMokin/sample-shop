@@ -11,7 +11,7 @@ class StatusException {
 
 function CreateException(status, messageBadRequst = null) {
     if (status === 400) {
-        return new StatusException(status, messageBadRequst);
+        return new StatusException(status, messageBadRequst === null ? 'Bad request.' : messageBadRequst);
     }
     if (status === 401) {
         return new StatusException(status, 'Not logined. ');
@@ -120,7 +120,7 @@ export default class Api {
             }
         );
 
-        return ResponseHandler(response);
+        return ResponseHandler(response, 'Can not get any elements.');
     }
 
     async addToBasket(obj){
@@ -152,7 +152,7 @@ export default class Api {
             }
         );
 
-        return ResponseHandler(response);
+        return ResponseHandler(response, 'Can not delete this item.');
     }
 
     async clearBasket(){
@@ -167,7 +167,7 @@ export default class Api {
             }
         );
 
-        return ResponseHandler(response);
+        return ResponseHandler(response, 'Can not clear basket.');
     }
 
     async getBasket(){
@@ -182,7 +182,7 @@ export default class Api {
             }
         );
 
-        return ResponseHandler(response);
+        return ResponseHandler(response, 'Can not get basket of this user.');
     }
 
     async buy(){
@@ -197,6 +197,6 @@ export default class Api {
             }
         );
 
-        return ResponseHandler(response);
+        return ResponseHandler(response, 'Wrong email address.');
     }
 }
