@@ -64,23 +64,35 @@ module.exports = class UserService {
         return await this.repository.delete(id);
     }
 
-    async update(user) {
+    async update(user, reqUserId) {
         if (!Validator.isValid(user, ModelNames.USER_VIEW)) throw ErrorHelper.notValidModelException;
 
         let currentUser = await this.repository.read(user._id);
 
         if (!currentUser) throw ErrorHelper.notFoundException;
 
-        if (user.password) {
-            if (!Hash.comparePassowrds(user.password, currentUser.password)) {
-                user.password = Hash.hashPassword(user.password);
-            }
-        }
-        else {
-            user.password = currentUser.password;
+        if(currentUser.role !== user.role){
+            let reqUser = await this.repository.read(reqUserId);
+            if(!reqUser) throw ErrorHelper.accessForbiddenException;
+            if(reqUser.role !== Roles.ADMIN || currentUser._id == reqUserId) throw ErrorHelper.accessForbiddenException;
+            currentUser.role = user.role;
         }
 
-        return await this.repository.update(user);
+        if (user.password) {
+            currentUser.password = Hash.hashPassword(user.password);
+        }
+        
+        currentUser.firstName = user.firstName;
+        currentUser.lastName = user.lastName;
+        currentUser.email = user.email;
+        currentUser.pictureRef = user.pictureRef;
+
+        let result = await this.repository.update(currentUser);
+
+        return {
+            user: Mapper.map(result, ModelNames.USER, ModelNames.USER_VIEW),
+            token: `bearer ${Jwt.generateToken(result)}`
+        };
     }
 
     async get(id) {
@@ -88,8 +100,8 @@ module.exports = class UserService {
         return user ? Mapper.map(user, ModelNames.USER, ModelNames.USER_VIEW) : user;
     }
 
-    async getAll() {
-        return (await this.repository.readAll()).map(user => {
+    async getAll(reqUserId) {
+        return (await this.repository.readAll()).filter(u => u._id != reqUserId).map(user => {
             return Mapper.map(user, ModelNames.USER, ModelNames.USER_VIEW);
         });
     }

@@ -15,7 +15,6 @@ class Users extends Component {
 
     async componentDidMount() {
         let users = await this.api.getUsers();
-        console.log(users)
         if (this.checkError(users)) return;
         this.setState({ users: users });
     }
