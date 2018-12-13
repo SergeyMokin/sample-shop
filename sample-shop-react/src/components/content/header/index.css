@@ -77,12 +77,12 @@ a{
     opacity: 0;
     display: none;
     top: 55px;
-    width: 100%;
     text-align: center;
     left: 0;
     text-decoration: none;
     color: white;
     font-size: 20px;
+    padding: 0 15px 0 0;
 }
 
 .header ul li:hover > ul,
@@ -96,4 +96,35 @@ a{
     clear: both;
     width: 100%;
     margin-left: -15px;
+}
+
+@media screen and (min-width: 600px){
+    .header ul li ul{
+        width: 20%;
+    }
+
+    .header li{
+        align-items: left;
+        justify-content: left;   
+        text-align: left;
+    }
+
+    .header li a{
+        width: 100%;
+        align-items: center;
+        justify-content: center;   
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .purchases .card-item .buttons{
+        width: 100%;
+    }
+
+    .header li{
+        align-items: center;
+        justify-content: center;   
+        text-align: center;
+    }
 }
