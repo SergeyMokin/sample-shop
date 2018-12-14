@@ -1,6 +1,18 @@
 .popup {
     position: fixed;
     right: 1%;
+    top: 60px;
+    box-shadow: 2px 2px 1px rgba(0,0,0, 0.85);
+    background-color: rgba(0,0,0, 0.8);
+    margin: auto;
+    text-align: center;
+    color: white;
+    width: 23%;
+}
+
+.popup-login{
+    position: fixed;
+    right: 1%;
     bottom: 1%;
     box-shadow: 2px 2px 1px rgba(0,0,0, 0.85);
     background-color: rgba(0,0,0, 0.8);
@@ -13,11 +25,21 @@
 @media screen and (min-width: 600px){
     .popup{
         width: 23%;
+        top: 60px;
+    }
+
+    .popup-login{
+        width: 23%;
     }
 }
 
 @media screen and (max-width: 600px){
     .popup{
+        width: 98%;
+        top: 60px;
+    }
+
+    .popup-login{
         width: 98%;
     }
 }

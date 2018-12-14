@@ -62,7 +62,7 @@ class Login extends Component {
 
                 <button onClick={this.login.bind(this)}>Login</button>
 
-                {this.state.error ? <Popup time={1200} text={this.state.error} close={() => this.setState({ error: null })} /> : null}
+                {this.state.error ? <Popup time={1200} text={this.state.error} close={() => this.setState({ error: null })} class={"popup-login"} /> : null}
             </div>
         );
     }

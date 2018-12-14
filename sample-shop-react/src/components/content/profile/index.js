@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './index.css';
 import Api from '../../../api';
 import Constants from '../../../constants';
+import Popup from '../../popup';
 
 class Profile extends Component {
     constructor(props) {
@@ -72,6 +73,7 @@ class Profile extends Component {
                     <button onClick={() => this.setState({ isChangePassword: false, isEdit: true })}> Edit </button>
                     <button onClick={() => this.setState({ isChangePassword: true, isEdit: false })}> Change password </button>
                 </div>
+                {this.state.error ? <Popup time={1200} text={this.state.error} close={() => this.setState({ error: null })} /> : null}
             </div>
         )
             : this.state.isChangePassword ? (
@@ -79,6 +81,7 @@ class Profile extends Component {
                     <input placeholder="New password" type="password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} onKeyPress={(e) => this.enterPressed(e, true)} />
                     <button onClick={() => this.edit(true)}>Change</button>
                     <button onClick={() => this.setState({ isChangePassword: false, isEdit: false })}> Cancel </button>
+                    {this.state.error ? <Popup time={1200} text={this.state.error} close={() => this.setState({ error: null })} /> : null}
                 </div>
             )
                 : this.state.isEdit ? (
@@ -89,6 +92,7 @@ class Profile extends Component {
                         <input placeholder="Picture ref" type="text" value={this.state.pictureRef} onChange={(e) => this.setState({ pictureRef: e.target.value })} onKeyPress={(e) => this.enterPressed(e)} />
                         <button onClick={() => this.edit(false)}>Change</button>
                         <button onClick={() => this.setState({ isChangePassword: false, isEdit: false })}> Cancel </button>
+                        {this.state.error ? <Popup time={1200} text={this.state.error} close={() => this.setState({ error: null })} /> : null}
                     </div>
                 )
                     : (

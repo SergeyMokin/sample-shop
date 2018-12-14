@@ -77,7 +77,7 @@ class Register extends Component {
                 <input placeholder="Password" id="reg_pass" value={this.state.password} type="password" onChange={(e) => this.setState({ password: e.target.value })} onKeyPress={(e) => this.enterPressed(e)} />
                 <button onClick={this.register.bind(this)} onKeyPress={event => { if (event.key === 'Enter') this.register() }}>Register</button>
 
-                {this.state.error ? <Popup time={1200} text={this.state.error} close={() => this.setState({ error: null })} /> : null}
+                {this.state.error ? <Popup time={1200} text={this.state.error} close={() => this.setState({ error: null })} class={"popup-login"}/> : null}
             </div>
         );
     }

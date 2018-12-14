@@ -3,10 +3,15 @@ import PropTypes from 'prop-types'
 import './index.css';
 
 class Popup extends Component {
+    constructor(props){
+        super(props);
+        this.class = this.props.class ? this.props.class : "popup";
+    }
+
     render() {
         setTimeout(() => this.props.close(), this.props.time);
         return (
-            <div className='popup'>
+            <div className={this.class}>
                 <h3>{this.props.text}</h3>
             </div>
         );
