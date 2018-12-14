@@ -1,14 +1,10 @@
 const router = require('express').Router();
-const bodyParser = require('body-parser');
 const Initializer = require('../../helpers/initializer');
 const Auth = require('../../filters/auth');
 const AdminAuth = require('../../filters/admin-auth');
 const ReponseHandler = require('../../helpers/response-handler');
 
 let purchaseService = Initializer.getPurchaseService();
-
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(bodyParser.json());
 
 router.get('/get/:id', Auth, function (request, response) {
     ReponseHandler(purchaseService.get(request.params.id), response);

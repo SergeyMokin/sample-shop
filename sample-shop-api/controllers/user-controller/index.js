@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const bodyParser = require('body-parser');
 const Initializer = require('../../helpers/initializer');
 const Auth = require('../../filters/auth');
 const AdminAuth = require('../../filters/admin-auth');
@@ -7,9 +6,6 @@ const ReponseHandler = require('../../helpers/response-handler');
 const UserExtensions = require('../../helpers/user-extensions');
 
 let userService = Initializer.getUserService();
-
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(bodyParser.json());
 
 router.post('/register', function (request, response) {
     ReponseHandler(userService.register(request.body), response);

@@ -71,17 +71,17 @@ module.exports = class UserService {
 
         if (!currentUser) throw ErrorHelper.notFoundException;
 
-        if(currentUser.role !== user.role){
+        if (currentUser.role !== user.role) {
             let reqUser = await this.repository.read(reqUserId);
-            if(!reqUser) throw ErrorHelper.accessForbiddenException;
-            if(reqUser.role !== Roles.ADMIN || currentUser._id == reqUserId) throw ErrorHelper.accessForbiddenException;
+            if (!reqUser) throw ErrorHelper.accessForbiddenException;
+            if (reqUser.role !== Roles.ADMIN || currentUser._id == reqUserId) throw ErrorHelper.accessForbiddenException;
             currentUser.role = user.role;
         }
 
         if (user.password) {
             currentUser.password = Hash.hashPassword(user.password);
         }
-        
+
         currentUser.firstName = user.firstName;
         currentUser.lastName = user.lastName;
         currentUser.email = user.email;
